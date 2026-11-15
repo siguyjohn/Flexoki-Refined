@@ -4,7 +4,7 @@ A refined version of the [Flexoki theme for Obsidian](https://github.com/kepano/
 
 I'm a big fan of Flexoki, but I made some tweaks to the interface on both desktop and mobile to make Obsidian look more modern.
 
-![Mobile sidebar in light mode](light-left.png)
+![Mobile sidebar in light mode](light left.png)
 ![Note on mobile in dark mode](dark-mobile.png)
 ![Dark mode desktop](dark-desktop.png)
 ![Light mode desktop](light-desktop.png)
