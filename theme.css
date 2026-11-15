@@ -1,0 +1,901 @@
+/* Refined Flexoki: local copy of Flexoki with refined aesthetic, quote, highlight and background styling.
+   Includes the retained aesthetic, quote, highlight and background customizations. */
+
+/*
+Flexoki
+MIT License
+Copyright (c) 2023 Steph Ango
+https://stephango.com/flexoki
+*/
+.theme-light {
+  --color-red-rgb: 175, 48, 41;
+  --color-orange-rgb: 188, 82, 21;
+  --color-yellow-rgb: 173, 131, 1;
+  --color-green-rgb: 102, 128, 11;
+  --color-cyan-rgb: 36, 131, 123;
+  --color-blue-rgb: 32, 94, 166;
+  --color-purple-rgb: 94, 64, 157;
+  --color-pink-rgb: 160, 47, 111;
+
+  --color-red: #AF3029;
+  --color-orange: #BC5215;
+  --color-yellow: #AD8301;
+  --color-green: #66800B;
+  --color-cyan: #24837B;
+  --color-blue: #205EA6;
+  --color-purple: #5E409D;
+  --color-pink: #A02F6F;
+
+  --accent-h: 175;
+  --accent-s: 57%;
+  --accent-l: 33%;
+
+  --color-base-00: #FFFCF0;
+  --color-base-05: #FFFCF0;
+  --color-base-10: #F2F0E5;
+  --color-base-20: #F2F0E5;
+  --color-base-25: #E6E4D9;
+
+  --color-base-30: #E6E4D9;
+  --color-base-35: #DAD8CE;
+  --color-base-40: #CECDC3;
+
+  --color-base-50: #B7B5AC;
+  --color-base-60: #878580;
+  --color-base-70: #6F6E69;
+  --color-base-100: #100F0F;
+}
+.theme-dark {
+  --color-red-rgb: 209, 77, 65;
+  --color-orange-rgb: 218, 112, 44;
+  --color-yellow-rgb:208, 162, 21;
+  --color-green-rgb: 135, 154, 57;
+  --color-cyan-rgb: 58, 169, 159;
+  --color-blue-rgb: 67, 133, 190;
+  --color-purple-rgb: 139, 126, 200;
+  --color-pink-rgb: 206, 93, 151;
+
+  --color-red: #D14D41;
+  --color-orange: #DA702C;
+  --color-yellow: #D0A215;
+  --color-green: #879A39;
+  --color-cyan: #3AA99F;
+  --color-blue: #4385BE;
+  --color-purple: #8B7EC8;
+  --color-pink: #CE5D97;
+
+  --accent-h: 175;
+  --accent-s: 57%;
+  --accent-l: 33%;
+
+  --color-base-00: #100F0F;
+  --color-base-05: #100F0F;
+  --color-base-10: #1C1B1A;
+  --color-base-20: #1C1B1A;
+  --color-base-25: #282726;
+
+  --color-base-30: #282726;
+  --color-base-35: #343331;
+  --color-base-40: #403E3C;
+
+  --color-base-50: #595652;
+  --color-base-60: #6F6E69;
+  --color-base-70: #89857F;
+  --color-base-100: #D0CCC1;
+}
+
+/* ===== Bundled snippet: refined-aesthetic ===== */
+
+/* Obsidian sidebar horizontal-divider removal
+   Visible borders retain the theme’s native thickness and color.
+   No color, background, opacity, shadow, or theme-variable overrides.
+*/
+
+/* Remove the horizontal divider below each sidebar tab bar, including stacked panes. */
+.workspace-split.mod-left-split .workspace-tabs > .workspace-tab-header-container,
+.workspace-split.mod-right-split .workspace-tabs > .workspace-tab-header-container {
+    border-bottom-width: 0 !important;
+}
+
+/* Cover themes that draw the divider on the content's top edge. */
+.workspace-split.mod-left-split .workspace-tabs > .workspace-tab-container,
+.workspace-split.mod-right-split .workspace-tabs > .workspace-tab-container {
+    border-top-width: 0 !important;
+}
+
+/* Remove the horizontal divider above the left sidebar footer by width only. */
+.mod-left-split .workspace-sidedock-vault-profile,
+.mod-left-split .workspace-sidedock-vault-profile::before {
+    border-top-width: 0 !important;
+}
+
+/* Some themes place that same divider on the pane immediately above it. */
+.mod-left-split .workspace-tabs:last-of-type,
+.mod-left-split .workspace-tabs:last-of-type .workspace-tab-container {
+    border-bottom-width: 0 !important;
+}
+
+
+/* Main note tabs: rounded active rectangle and short dividers between
+   inactive tabs. Both use the same shading as the active sidebar button
+   (--background-modifier-hover). Dividers use a 2px thickness. */
+body .workspace-split.mod-root .workspace-tabs:not(.mod-stacked) > .workspace-tab-header-container {
+    /* Reserve the default border space without drawing a line. */
+    border-bottom: var(--tab-outline-width) solid transparent !important;
+}
+
+body .workspace-split.mod-root .workspace-tabs:not(.mod-stacked) > .workspace-tab-header-container .workspace-tab-header {
+    position: relative;
+    border: none !important;
+    border-radius: var(--tab-radius) !important;
+    corner-shape: round !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+/* Shade the inner content of the active tab. */
+body .workspace-split.mod-root .workspace-tabs:not(.mod-stacked) > .workspace-tab-header-container .workspace-tab-header.is-active .workspace-tab-header-inner {
+    background: var(--background-modifier-hover) !important;
+}
+
+body .workspace-split.mod-root .workspace-tabs:not(.mod-stacked) > .workspace-tab-header-container .workspace-tab-header-inner {
+    align-items: center !important;
+    padding-inline: 10px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: var(--tab-radius) !important;
+}
+
+/* Remove the original index-tab curves and built-in separators. */
+body .workspace-split.mod-root .workspace-tabs:not(.mod-stacked) > .workspace-tab-header-container .workspace-tab-header::before,
+body .workspace-split.mod-root .workspace-tabs:not(.mod-stacked) > .workspace-tab-header-container .workspace-tab-header::after,
+body .workspace-split.mod-root .workspace-tabs:not(.mod-stacked) > .workspace-tab-header-container .workspace-tab-header-inner::after {
+    content: none !important;
+    box-shadow: none !important;
+}
+
+/* A divider appears only where two inactive tabs meet. */
+body .workspace-split.mod-root .workspace-tabs:not(.mod-stacked) > .workspace-tab-header-container .workspace-tab-header:not(.is-active):has(+ .workspace-tab-header:not(.is-active))::after {
+    content: "" !important;
+    position: absolute;
+    display: block !important;
+    inset: auto !important;
+    inset-inline-end: 0 !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    /* Paint a 2px-wide separator. */
+    width: 2px !important;
+    height: 16px !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: var(--background-modifier-hover) !important;
+    clip-path: none !important;
+    opacity: 1 !important;
+    pointer-events: none;
+}
+
+/* One source of panel/header backgrounds, using the current theme.
+   Desktop only: mobile drawers and floating controls have their own layout. */
+body:not(.is-mobile) .workspace-split.mod-root {
+    --panel-surface: var(--background-primary);
+}
+
+body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-right-split) {
+    --panel-surface: var(--background-secondary);
+}
+
+/* Use the same surface for each sidebar's body and its top strip. */
+body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-right-split),
+body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-right-split) .workspace-tabs,
+body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-right-split) .workspace-tab-container {
+    background: var(--panel-surface) !important;
+}
+
+/* Override titlebar-specific colors locally, for both sidebar and note tops. */
+body:not(.is-mobile) .workspace-split:is(.mod-root, .mod-left-split, .mod-right-split) .workspace-tab-header-container,
+body:not(.is-mobile) .workspace-split:is(.mod-root, .mod-left-split, .mod-right-split) .view-header {
+    --tab-container-background: var(--panel-surface) !important;
+    background: var(--panel-surface) !important;
+}
+
+/* Give the right sidebar toggle an opaque surface matching its panel. */
+body:not(.is-mobile) .workspace .sidebar-toggle-button.mod-right {
+    background: var(--panel-surface, var(--background-primary)) !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+body:not(.is-mobile) .workspace .sidebar-toggle-button.mod-right::before,
+body:not(.is-mobile) .workspace .sidebar-toggle-button.mod-right::after {
+    content: none !important;
+}
+
+/* Obsidian's reparenting animation leaves a temporary cloned toggle
+   with inline overflow:hidden while its width shrinks to zero. The
+   real right toggle is moved without that width animation. Keep the
+   clone's layout space, but do not paint its second icon. */
+body:not(.is-mobile) .workspace .sidebar-toggle-button.mod-right[style*="overflow: hidden"],
+body:not(.is-mobile) .workspace .sidebar-toggle-button.mod-right[style*="overflow:hidden"] {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Preserve hover feedback, but remove any resting fill on the icon button. */
+body:not(.is-mobile) .workspace .sidebar-toggle-button.mod-right .clickable-icon:not(:hover):not(:active):not(:focus-visible) {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Preserve the earlier fix for theme-added blocks behind note tab labels. */
+body:not(.is-mobile) .workspace-split.mod-root .workspace-tab-header-inner-title {
+    background: transparent !important;
+}
+
+
+/* ===== Bundled snippet: refined-quotes ===== */
+
+body {
+    --blockquote-border-color: var(--color-accent);
+}
+
+body .callout {
+    --callout-color: var(--color-accent) !important;
+    --callout-radius: 8px;
+}
+
+/* Quote text matches normal note text in Reading view and Live Preview,
+   on desktop and mobile. Keep the quote border's accent color. */
+:root:root:root body {
+    --blockquote-color: var(--text-normal) !important;
+}
+
+:root:root:root body .markdown-rendered blockquote,
+:root:root:root body .markdown-rendered blockquote :is(p, li, strong, em),
+:root:root:root body .markdown-source-view.mod-cm6 .HyperMD-quote,
+:root:root:root body .markdown-source-view.mod-cm6 .cm-quote:not(.cm-formatting-quote) {
+    color: var(--text-normal) !important;
+}
+
+/* ===== Bundled snippet: refined-highlights ===== */
+
+/* Refined highlights: shared styling for authored highlights, sidebar
+   matches, in-note Find, and the destination of an opened search result. */
+body.theme-light { --ref-high-text-lightness: 0.28; }
+body.theme-dark { --ref-high-text-lightness: 0.92; }
+body { --ref-high-background-opacity: 0.4; }
+
+/* .is-flashing is the editor's jump-to-search-result decoration.
+   .obsidian-search-match-highlight is Obsidian's native in-note Find mark.
+   Do not require a particular editor mode or rendered-note wrapper. */
+:root:root:root body .workspace-leaf-content :is(
+    mark,
+    .cm-highlight,
+    .cm-formatting-highlight,
+    .search-result-file-matched-text,
+    .obsidian-search-match-highlight,
+    .cm-searchMatch,
+    .is-flashing
+) {
+    --ref-high-background: var(--highlight-background, var(--text-highlight-bg, #D0A215));
+    --ref-high-foreground: oklch(from var(--ref-high-background)
+        var(--ref-high-text-lightness, 0.28) c h / 1);
+    border-radius: 0.3em !important;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    background-color: rgb(from var(--ref-high-background) r g b / var(--ref-high-background-opacity)) !important;
+    background-image: none !important;
+    color: var(--ref-high-foreground) !important;
+    -webkit-text-fill-color: var(--ref-high-foreground) !important;
+    opacity: 1 !important;
+    mix-blend-mode: normal !important;
+    /* Jump highlights otherwise animate from the theme's normal text color. */
+    transition: none !important;
+}
+
+/* Apply the same text color to nested links, bold text, and syntax spans. */
+:root:root:root body .workspace-leaf-content :is(
+    mark,
+    .cm-highlight,
+    .cm-formatting-highlight,
+    .search-result-file-matched-text,
+    .obsidian-search-match-highlight,
+    .cm-searchMatch,
+    .is-flashing
+) * {
+    color: var(--ref-high-foreground) !important;
+    -webkit-text-fill-color: var(--ref-high-foreground) !important;
+}
+
+/* Reading-view Find uses empty positioned boxes over the actual text.
+   Keep those native outlines; they do not contain text to recolor. */
+
+
+/* ===== Bundled snippet: refined-note-background ===== */
+
+/* Shared desktop/mobile main surfaces use exact official Flexoki
+   swatches: base-950 is nearest the previously lifted dark surface;
+   paper is nearest the previously warmed light surface. */
+body.theme-dark {
+  --refined-note-background: #1C1B1A;
+}
+
+body.theme-light {
+  --refined-note-background: #FFFCF0;
+}
+
+/* Pull-down command overlay: preserve its fade with the note's color,
+   including when the overlay is mounted outside the main split. */
+:root:root:root body:is(.theme-dark, .theme-light) .pull-down-action {
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--refined-note-background) 90%, transparent) 40%,
+    color-mix(in srgb, var(--refined-note-background) 0%, transparent) 100%
+  ) !important;
+}
+
+/* Native top/bottom fades are alpha masks: their visible color comes
+   from the surface behind the main pane. Match that surface, without
+   changing inherited theme variables or the sidebars' own backgrounds. */
+:root:root:root body:is(.theme-dark, .theme-light),
+:root:root:root body:is(.theme-dark, .theme-light) :is(
+  .app-container,
+  .horizontal-main-container,
+  .workspace
+) {
+  background-color: var(--refined-note-background) !important;
+}
+
+/* Keep native gradients, with their surface colors matching the note.
+   Set these on the main split so headers and edge overlays inherit them too. */
+:root:root:root body:is(.theme-dark, .theme-light) .workspace-split.mod-root {
+  --background-primary: var(--refined-note-background) !important;
+  --background-primary-alt: var(--refined-note-background) !important;
+  --background-secondary: var(--refined-note-background) !important;
+  --background-secondary-alt: var(--refined-note-background) !important;
+  --canvas-background: var(--refined-note-background) !important;
+  --titlebar-background: var(--refined-note-background) !important;
+  --titlebar-background-focused: var(--refined-note-background) !important;
+}
+
+:root:root:root body:is(.theme-dark, .theme-light) .workspace-split.mod-root .workspace-leaf-content {
+  background-color: var(--refined-note-background) !important;
+}
+
+:root:root:root body:is(.theme-dark, .theme-light) .workspace-split.mod-root .workspace-leaf-content :is(
+  .view-content,
+  .markdown-source-view,
+  .markdown-preview-view,
+  .canvas-wrapper,
+  .canvas,
+  .bases-view,
+  .empty-state
+) {
+  background-color: var(--refined-note-background) !important;
+}
+
+/* Bases column-name row: match the main pane's refined background. */
+:root:root:root body:is(.theme-dark, .theme-light) .workspace-split.mod-root .bases-view {
+  --bases-table-header-background: var(--refined-note-background) !important;
+}
+
+:root:root:root body:is(.theme-dark, .theme-light) .workspace-split.mod-root .bases-thead,
+:root:root:root body:is(.theme-dark, .theme-light) .workspace-split.mod-root .bases-thead .bases-td {
+  background-color: var(--refined-note-background) !important;
+}
+
+/* Keep the fade inside the moving pane. Masking the entire main split
+   exposes other composited surfaces while a drawer slides. An opaque
+   main split gives the unchanged fade a stable, matching backdrop. */
+:root:root:root body:is(.theme-dark, .theme-light).is-phone:is(.is-floating-nav, .auto-full-screen) .workspace-split.mod-root {
+  background-color: var(--refined-note-background) !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+
+:root:root:root body:is(.theme-dark, .theme-light).is-phone:is(.is-floating-nav, .auto-full-screen) .workspace-split.mod-root .workspace-leaf-content {
+  -webkit-mask-image: var(--view-bottom-fade-mask) !important;
+  mask-image: var(--view-bottom-fade-mask) !important;
+}
+
+
+/* Internal links stay plain in reading/editing views, including on hover.
+   External links retain their underline. */
+body {
+  --link-decoration: none;
+  --link-decoration-hover: none;
+}
+
+/* Editing toolbar backdrop and keyboard gap share the note surface in
+   both modes. Keep the rounded control groups' native fills intact. */
+:root:root:root body.is-mobile:is(.theme-dark, .theme-light) {
+  --keyboard-background: var(--refined-note-background) !important;
+}
+
+:root:root:root body.is-mobile:is(.theme-dark, .theme-light) :is(
+  .mobile-toolbar,
+  .mobile-toolbar-spacer
+) {
+  --background-primary: var(--refined-note-background) !important;
+  background-color: var(--refined-note-background) !important;
+}
+
+/* Mobile dark-mode drawers: official Flexoki base-950, lighter than the note. */
+body.is-mobile.theme-dark {
+  --refined-sidebar-background: #1C1B1A;
+}
+
+/* Native drawer fades and footer shadows use --mobile-sidebar-background.
+   Share that exact surface with embedded views and both drawer panels. */
+:root:root:root body.is-mobile.theme-dark .workspace-drawer {
+  --mobile-sidebar-background: var(--refined-sidebar-background) !important;
+  --background-primary: var(--refined-sidebar-background) !important;
+  --background-primary-alt: var(--refined-sidebar-background) !important;
+  --background-secondary: var(--refined-sidebar-background) !important;
+  --background-secondary-alt: var(--refined-sidebar-background) !important;
+  background-color: var(--refined-sidebar-background) !important;
+}
+
+/* Mobile light-mode drawers: official Flexoki base-50 paper. */
+body.is-mobile.theme-light {
+  --refined-sidebar-background: #F2F0E5;
+}
+
+/* Share one color across each drawer, its native fades and footer shadows. */
+:root:root:root body.is-mobile.theme-light .workspace-drawer {
+  --mobile-sidebar-background: var(--refined-sidebar-background) !important;
+  --background-primary: var(--refined-sidebar-background) !important;
+  --background-primary-alt: var(--refined-sidebar-background) !important;
+  --background-secondary: var(--refined-sidebar-background) !important;
+  --background-secondary-alt: var(--refined-sidebar-background) !important;
+  background-color: var(--refined-sidebar-background) !important;
+}
+
+/* Give mobile sidebar tab switchers a distinct, palette-matched surface. */
+body.is-mobile.theme-dark .workspace-drawer {
+  --refined-sidebar-switcher-background: #343331;
+}
+
+body.is-mobile.theme-light .workspace-drawer {
+  --refined-sidebar-switcher-background: #E6E4D9;
+}
+
+:root:root:root body.is-mobile .workspace-drawer :is(
+  .workspace-drawer-tab-options,
+  .workspace-drawer-tab-options-list
+) {
+  --raised-background: var(--refined-sidebar-switcher-background) !important;
+  --background-primary: var(--refined-sidebar-switcher-background) !important;
+}
+
+/* Recolor the native surfaces without overriding their individual shapes. */
+:root:root:root body.is-mobile .workspace-drawer .workspace-drawer-tab-options-list,
+:root:root:root body.is-mobile .workspace-drawer .workspace-drawer-tab-select .workspace-tab-header-inner {
+  background-color: var(--refined-sidebar-switcher-background) !important;
+}
+
+/* Keep switcher labels, icons and chevrons legible in both color modes,
+   including the normally faint duplicate selector in the expanded list. */
+:root:root:root body.is-mobile .workspace-drawer .workspace-drawer-tab-options,
+:root:root:root body.is-mobile .workspace-drawer .workspace-drawer-tab-options :is(
+  .workspace-tab-header,
+  .workspace-tab-header-inner,
+  .workspace-tab-header-inner-title,
+  .workspace-tab-header-inner-icon,
+  .workspace-tab-header-inner-chevron,
+  .workspace-drawer-active-tab-chevron
+),
+:root:root:root body.is-mobile .workspace-drawer .workspace-drawer-tab-select {
+  --icon-color: var(--text-normal) !important;
+  color: var(--text-normal) !important;
+}
+
+/* The expanded menu's duplicate current-selection row is a label,
+   rather than another menu choice. Keep the collapsed pill unchanged. */
+:root:root:root body.is-mobile .workspace-drawer .workspace-drawer-tab-options:not(.is-collapsed) .workspace-drawer-tab-select,
+:root:root:root body.is-mobile .workspace-drawer .workspace-drawer-tab-options:not(.is-collapsed) .workspace-drawer-tab-select :is(
+  .workspace-tab-header-inner,
+  .workspace-tab-header-inner-title,
+  .workspace-tab-header-inner-icon,
+  .workspace-tab-header-inner-chevron,
+  .workspace-drawer-active-tab-chevron
+) {
+  --icon-color: var(--text-muted) !important;
+  color: var(--text-muted) !important;
+}
+
+/* Desktop main-pane top fades; Bases keeps its hard edges. */
+:root:root:root body:not(.is-mobile) .workspace-split.mod-root .workspace-leaf-content[data-type="markdown"] > .view-content > .markdown-preview-view,
+:root:root:root body:not(.is-mobile) .workspace-split.mod-root .workspace-leaf-content[data-type="markdown"] .markdown-source-view.mod-cm6 .cm-scroller,
+:root:root:root body:not(.is-mobile) .workspace-split.mod-root .workspace-leaf-content:is([data-type="graph"], [data-type="localgraph"], [data-type="canvas"]) > .view-content {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 14px) !important;
+  mask-image: linear-gradient(to bottom, transparent, black 14px) !important;
+}
+
+/* Desktop right sidebar follows the shared note surface in both modes. */
+:root:root:root body:not(.is-mobile) .workspace-split.mod-right-split {
+  --background-primary: var(--refined-note-background) !important;
+  --background-primary-alt: var(--refined-note-background) !important;
+  --background-secondary: var(--refined-note-background) !important;
+  --background-secondary-alt: var(--refined-note-background) !important;
+  --panel-surface: var(--refined-note-background) !important;
+  --canvas-background: var(--refined-note-background) !important;
+  background-color: var(--refined-note-background) !important;
+}
+
+:root:root:root body:not(.is-mobile) .workspace-split.mod-right-split :is(
+  .workspace-tabs,
+  .workspace-tab-header-container,
+  .workspace-tab-container,
+  .workspace-leaf,
+  .workspace-leaf-content,
+  .view-header,
+  .view-content
+) {
+  background-color: var(--refined-note-background) !important;
+}
+
+/* Desktop left sidebar: official Flexoki base colors provide a distinct
+   surface against the main pane, consistently across all sidebar layers. */
+body:not(.is-mobile).theme-light {
+  --refined-desktop-left-background: #F2F0E5;
+}
+body:not(.is-mobile).theme-dark {
+  --refined-desktop-left-background: #282726;
+}
+
+:root:root:root body:not(.is-mobile) .workspace-split.mod-left-split {
+  --panel-surface: var(--refined-desktop-left-background) !important;
+  --background-primary: var(--refined-desktop-left-background) !important;
+  --background-primary-alt: var(--refined-desktop-left-background) !important;
+  --background-secondary: var(--refined-desktop-left-background) !important;
+  --background-secondary-alt: var(--refined-desktop-left-background) !important;
+  --titlebar-background: var(--refined-desktop-left-background) !important;
+  --titlebar-background-focused: var(--refined-desktop-left-background) !important;
+  background-color: var(--refined-desktop-left-background) !important;
+}
+
+:root:root:root body:not(.is-mobile) .workspace-split.mod-left-split :is(
+  .workspace-tabs,
+  .workspace-tab-header-container,
+  .workspace-tab-container,
+  .workspace-leaf,
+  .workspace-leaf-content,
+  .view-header,
+  .view-content,
+  .workspace-sidedock-vault-profile
+) {
+  background-color: var(--refined-desktop-left-background) !important;
+}
+
+/* Place the horizontal fade before the scrollbar gutter and inner padding,
+   where text actually clips, rather than in the empty outermost pixels. */
+/* All desktop sidebar tabs, including plugin views. Prefer the native
+   inner file/outline scroller where present, avoiding stacked masks.
+   Bases remains unmasked. */
+:root:root:root body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-right-split) {
+  --refined-sidebar-edge-fade: linear-gradient(to bottom, transparent, black 6px);
+}
+:root:root:root body:not(.is-mobile) .workspace-split.mod-left-split {
+  --refined-sidebar-edge-fade: linear-gradient(to bottom, transparent, black 6px, black calc(100% - 14px), transparent);
+}
+
+:root:root:root body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-right-split) .workspace-leaf-content:not([data-type="bases"]) :is(
+  .view-content:not(:has(.nav-files-container, .outline)),
+  .nav-files-container,
+  .outline
+) {
+  -webkit-mask-image: var(--refined-sidebar-edge-fade), linear-gradient(to right, black calc(100% - 60px), rgba(0, 0, 0, 0.65) calc(100% - 42px), rgba(0, 0, 0, 0.15) calc(100% - 26px), transparent calc(100% - 18px)) !important;
+  mask-image: var(--refined-sidebar-edge-fade), linear-gradient(to right, black calc(100% - 60px), rgba(0, 0, 0, 0.65) calc(100% - 42px), rgba(0, 0, 0, 0.15) calc(100% - 26px), transparent calc(100% - 18px)) !important;
+  -webkit-mask-composite: source-in !important;
+  mask-composite: intersect !important;
+}
+
+/* Desktop sidebar text shares the file explorer's native size, including
+   plugin views that otherwise supply their own headings or preview sizes. */
+:root:root:root body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-right-split) .workspace-leaf-content:not([data-type="file-explorer"]) > .view-content,
+:root:root:root body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-right-split) .workspace-leaf-content:not([data-type="file-explorer"]) > .view-content :is(
+  div, span, p, a, li, label, small, h1, h2, h3, h4, h5, h6
+) {
+  font-size: var(--nav-item-size) !important;
+}
+
+/* A small equal step toward normal text: brighter in dark mode, stronger
+   contrast in light mode, preserving the palette's warm neutral hue. */
+body:not(.is-mobile) {
+  --refined-navigation-text: color-mix(in srgb, var(--text-muted) 88%, var(--text-normal));
+}
+
+:root:root:root body:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] {
+  --nav-item-color: var(--refined-navigation-text) !important;
+}
+
+:root:root:root body:not(.is-mobile) .workspace-tab-header-inner-title {
+  color: var(--refined-navigation-text) !important;
+}
+
+/* Compact Recent Notes margin; the final viewport mask below protects thumbnails. */
+:root:root:root body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-right-split) .workspace-leaf-content > .view-content.view-content.view-content:has(.recent-note-item) {
+  padding-right: 6px !important;
+}
+
+:root:root:root body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-right-split) .recent-note-item-wrapper {
+  padding-right: 0 !important;
+}
+/* Desktop file explorer: let the pane-edge fade handle long names. */
+:root:root:root body:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] :is(
+  .nav-file-title,
+  .nav-file-title-content,
+  .nav-folder-title,
+  .nav-folder-title-content
+) {
+  text-overflow: clip !important;
+}
+
+/* File rows need their selection backgrounds outside the horizontal mask.
+   Keep vertical scrolling fades on the scroller, and align text masks to
+   the full remaining row width so short names do not fade at their ends. */
+:root:root:root body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-right-split) .workspace-leaf-content[data-type="file-explorer"] .nav-files-container.nav-files-container {
+  -webkit-mask-image: var(--refined-sidebar-edge-fade) !important;
+  mask-image: var(--refined-sidebar-edge-fade) !important;
+}
+
+:root:root:root body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-right-split) .workspace-leaf-content[data-type="file-explorer"] :is(
+  .nav-file-title-content,
+  .nav-folder-title-content
+):not([contenteditable="true"]) {
+  flex: 1 1 auto;
+  min-width: 0;
+  -webkit-mask-image: var(--refined-desktop-text-fade) !important;
+  mask-image: var(--refined-desktop-text-fade) !important;
+}
+
+/* Right sidebar: keep selection/hover surfaces outside horizontal fades,
+   just as in the file explorer. Retain the shared top scrolling fade. */
+:root:root:root body:not(.is-mobile) .workspace-split.mod-right-split .workspace-leaf-content.workspace-leaf-content:not([data-type="bases"]) :is(
+  .view-content.view-content.view-content:not(:has(.nav-files-container, .outline)),
+  .nav-files-container.nav-files-container,
+  .outline.outline
+) {
+  -webkit-mask-image: var(--refined-sidebar-edge-fade) !important;
+  mask-image: var(--refined-sidebar-edge-fade) !important;
+}
+
+/* Fade label/content layers, preserving each row's full highlight shape.
+   Flexible labels fill the available row width, so short names stay clear. */
+:root:root:root body:not(.is-mobile) .workspace-split.mod-right-split .workspace-leaf-content:not([data-type="bases"]) :is(
+  .tree-item-inner,
+  .recent-note-content,
+  .search-result-file-title-content,
+  .tag-pane-tag-text,
+  .bookmark-title
+):not([contenteditable="true"]) {
+  flex: 1 1 auto;
+  min-width: 0;
+  -webkit-mask-image: var(--refined-desktop-text-fade) !important;
+  mask-image: var(--refined-desktop-text-fade) !important;
+}
+
+/* Desktop sidebar search fields: distinct fills, preserving native shape. */
+body:not(.is-mobile).theme-dark .workspace-split:is(.mod-left-split, .mod-right-split) {
+  --refined-sidebar-search-background: color-mix(in srgb, var(--background-primary) 88%, var(--text-normal));
+}
+body:not(.is-mobile).theme-light .workspace-split:is(.mod-left-split, .mod-right-split) {
+  --refined-sidebar-search-background: color-mix(in srgb, var(--background-primary) 94%, var(--text-normal));
+}
+
+:root:root:root body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-right-split) .search-input-container input {
+  background-color: var(--refined-sidebar-search-background) !important;
+  color: var(--text-normal) !important;
+}
+
+:root:root:root body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-right-split) .search-input-container input::placeholder {
+  color: var(--text-muted) !important;
+  opacity: 1 !important;
+}
+
+/* Keep compact plugin/outline margins, but let the file explorer use
+   its native symmetrical container spacing and native row padding. */
+:root:root:root body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-right-split) .workspace-leaf-content:not([data-type="bases"]):not([data-type="file-explorer"]) :is(
+  .view-content:not(:has(.nav-files-container, .outline)),
+  .outline
+) {
+  padding-right: 6px !important;
+}
+
+/* Recent Notes thumbnails must stay outside the horizontal text fade.
+   Preserve vertical scroll fades and the existing right margin. */
+:root:root:root body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-right-split) .workspace-leaf-content.workspace-leaf-content > .view-content.view-content.view-content:has(.recent-note-item) {
+  -webkit-mask-image: var(--refined-sidebar-edge-fade) !important;
+  mask-image: var(--refined-sidebar-edge-fade) !important;
+}
+
+/* Full-width text column, separate from its thumbnail sibling. */
+:root:root:root body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-right-split) .recent-note-content.recent-note-content {
+  -webkit-mask-image: var(--refined-desktop-text-fade) !important;
+  mask-image: var(--refined-desktop-text-fade) !important;
+}
+/* Inset Recent Notes thumbnails without changing the row or text layout. */
+:root:root:root body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-right-split) .recent-note-item[data-thumbnail-position="right"] .recent-note-thumbnail-container:not(.hidden-thumbnail) {
+  position: relative;
+  right: 6px;
+}
+
+
+:root:root:root body.is-mobile .workspace-drawer .recent-note-content {
+  -webkit-mask-image: var(--refined-mobile-text-fade) !important;
+  mask-image: var(--refined-mobile-text-fade) !important;
+}
+
+:root:root:root body.is-mobile .workspace-drawer .recent-note-item[data-thumbnail-position="right"] .recent-note-thumbnail-container:not(.hidden-thumbnail) {
+  position: relative;
+  /* Desktop edge distance is 12px. Account for the mobile view's 12px
+     outer padding and the row's 8px inner padding without moving text. */
+  right: calc(12px - var(--size-4-3) - var(--size-4-2));
+}
+
+/* Recent Notes time-period headings: no divider, desktop and mobile. */
+:root:root:root body .recent-notes-view h6 {
+  border-bottom: none !important;
+}
+
+/* Mobile sidebar truncation: fade text labels rather than whole panes,
+   preserving selection backgrounds, thumbnails, and wrapping Outline text.
+   Do not force nowrap: each view keeps its native wrapping behavior. */
+:root:root:root body.is-mobile .workspace-drawer :is(
+  .nav-file-title-content,
+  .nav-folder-title-content,
+  .tree-item-inner-text,
+  .search-result-file-title .tree-item-inner,
+  .tag-pane-tag-text
+):not(.outline *):not([contenteditable="true"]) {
+  text-overflow: clip !important;
+  -webkit-mask-image: var(--refined-mobile-text-fade) !important;
+  mask-image: var(--refined-mobile-text-fade) !important;
+}
+
+
+/* Mobile sidebar rows retain Obsidian/plugin-native container spacing,
+   row padding and corner geometry. Only text layers carry custom fades;
+   the thumbnail offset is independent of selection-background geometry. */
+
+/* Mobile label masks must end at the shared row margin, not at the end
+   of the words. Stretch only text containers, leaving row backgrounds,
+   native padding, thumbnails and wrapping Outline entries untouched. */
+:root:root:root body.is-mobile .workspace-drawer .tree-item-self > .tree-item-inner:has(.tree-item-inner-text):not(.outline *) {
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+:root:root:root body.is-mobile .workspace-drawer :is(
+  .nav-file-title-content,
+  .nav-folder-title-content,
+  .tree-item-inner-text,
+  .search-result-file-title .tree-item-inner,
+  .tag-pane-tag-text
+):not(.outline *):not([contenteditable="true"]) {
+  flex: 1 1 0%;
+  min-width: 0;
+  width: auto;
+}
+
+:root:root:root body.is-mobile .workspace-drawer .tree-item-inner-text:not(.outline *) {
+  display: block;
+}
+
+/* Match mobile Recent Notes' inner right margin to the file explorer's
+   native row padding. Leave the centered outer selection box untouched;
+   both tabs already share the identical text-fade gradient. */
+:root:root:root body.is-mobile .workspace-drawer .recent-note-item-wrapper {
+  padding-inline-end: var(--size-4-2) !important;
+}
+
+/* Preserve the hidden thumbnail's height, which sets row spacing.
+   Cancel only the horizontal flex gap when that placeholder is empty. */
+:root:root:root body.is-mobile .workspace-drawer .recent-note-item-wrapper:has(> .recent-note-thumbnail-container.hidden-thumbnail) {
+  column-gap: 0 !important;
+}
+
+/* Gently round the mobile Recent Notes row highlight without changing
+   its size, centered position, or vertical spacing. */
+:root:root:root body.is-mobile .workspace-drawer .recent-note-item {
+  border-radius: 8px !important;
+  corner-shape: round !important;
+}
+
+
+/* Mobile tab-switcher cards, especially new/empty tabs, share the same
+   note surface instead of falling back to the unmodified body background. */
+:root:root:root body.is-mobile :is(
+  .mobile-tab-preview,
+  .mobile-tab-preview-empty,
+  .mobile-tab-preview-embed
+) {
+  --background-primary: var(--refined-note-background) !important;
+  --background-primary-alt: var(--refined-note-background) !important;
+  --canvas-background: var(--refined-note-background) !important;
+  background-color: var(--refined-note-background) !important;
+}
+
+/* Mobile top fades belong on the actual scrolling viewport. Native
+   tabs nest their scrollers below toolbars; plugin tabs often scroll the
+   view-content itself. Choose the inner viewport to avoid fading headers
+   or placing the fade above the visible content boundary. */
+:root:root:root body.is-mobile .workspace-drawer :is(
+  .nav-files-container,
+  .outline,
+  .backlink-pane,
+  .outgoing-link-pane,
+  .search-result-container:not(.backlink-pane *, .outgoing-link-pane *),
+  .view-content:not(:has(.nav-files-container, .outline, .backlink-pane, .outgoing-link-pane, .search-result-container))
+) {
+  -webkit-mask-image: var(--refined-mobile-top-fade) !important;
+  mask-image: var(--refined-mobile-top-fade) !important;
+}
+
+/* Replace Obsidian's mobile-only neutral overrides with their nearest
+   official Flexoki swatches; retain the requested custom warm surfaces. */
+body.is-mobile.theme-light {
+  --color-base-100: #100F0F;
+}
+
+body.is-mobile.theme-dark {
+  --color-base-00: #100F0F;
+  --color-base-10: #100F0F;
+  --color-base-20: #1C1B1A;
+}
+
+/* Mobile Graph/Canvas: soften the content boundary below the header,
+   without affecting controls in the header or the existing bottom fade. */
+:root:root:root body.is-mobile .workspace-split.mod-root .workspace-leaf-content:is(
+  [data-type="graph"],
+  [data-type="localgraph"],
+  [data-type="canvas"]
+) > .view-content {
+  -webkit-mask-image: var(--refined-mobile-top-fade) !important;
+  mask-image: var(--refined-mobile-top-fade) !important;
+}
+
+/* Mobile dark main surfaces: the next darker official Flexoki swatch. */
+body.is-mobile.theme-dark {
+  --refined-note-background: #100F0F;
+}
+
+/* Shared fade values; the original selectors still control where they apply. */
+body {
+  --refined-desktop-text-fade: linear-gradient(to right, black calc(100% - 36px), rgba(0, 0, 0, 0.65) calc(100% - 22px), rgba(0, 0, 0, 0.15) calc(100% - 10px), transparent calc(100% - 4px));
+  --refined-mobile-text-fade: linear-gradient(to right, black calc(100% - 30px), rgba(0, 0, 0, 0.65) calc(100% - 16px), rgba(0, 0, 0, 0.15) calc(100% - 4px), transparent calc(100% + 2px));
+  --refined-mobile-top-fade: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.15) 3px, rgba(0, 0, 0, 0.65) 8px, black 12px);
+}
+
+/* Desktop Settings shares one surface across main content, navigation,
+   sticky headers and their matching shadows. */
+:root:root:root body:not(.is-mobile) .modal.mod-settings {
+  --settings-background: var(--refined-note-background);
+  --modal-background: var(--refined-note-background);
+  --background-primary: var(--refined-note-background);
+  --background-primary-alt: var(--refined-note-background);
+  --background-secondary: var(--refined-note-background);
+  --background-secondary-alt: var(--refined-note-background);
+  --modal-sidebar-background: var(--refined-note-background);
+  background-color: var(--refined-note-background) !important;
+}
+
+:root:root:root body:not(.is-mobile) .modal.mod-settings .vertical-tab-header {
+  --background-primary: var(--refined-note-background);
+  --settings-background: var(--refined-note-background);
+  background-color: var(--refined-note-background) !important;
+}
+
+/* Light desktop Settings: flat option groups, with their former secondary
+   paper color reserved for the search field. */
+:root:root:root body:not(.is-mobile).theme-light .modal.mod-settings {
+  --setting-items-background: var(--refined-note-background);
+}
+
+:root:root:root body:not(.is-mobile).theme-light .modal.mod-settings .setting-search-container input {
+  background-color: #F2F0E5 !important;
+}
