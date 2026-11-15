@@ -591,23 +591,72 @@ body:not(.is-mobile).theme-dark {
 
 /* Place the horizontal fade before the scrollbar gutter and inner padding,
    where text actually clips, rather than in the empty outermost pixels. */
-/* All desktop sidebar tabs, including plugin views. Prefer the native
+/* Left desktop sidebar tabs, including plugin views. Prefer the native
    inner file/outline scroller where present, avoiding stacked masks.
    Bases remains unmasked. */
-:root:root:root body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-right-split) {
-  --refined-sidebar-edge-fade: linear-gradient(to bottom, transparent, black 6px);
-}
-:root:root:root body:not(.is-mobile) .workspace-split.mod-left-split {
-  --refined-sidebar-edge-fade: linear-gradient(to bottom, transparent, black 6px, black calc(100% - 14px), transparent);
+/* The scroller controls its own top fade; an unscrollable pane stays clear. */
+@property --refined-sidebar-top-opacity {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
 }
 
-:root:root:root body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-right-split) .workspace-leaf-content:not([data-type="bases"]) :is(
-  .view-content:not(:has(.nav-files-container, .outline)),
+@keyframes refined-sidebar-top-fade {
+  from { --refined-sidebar-top-opacity: 1; }
+  to { --refined-sidebar-top-opacity: 0; }
+}
+
+:root:root:root body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-right-split) .workspace-leaf-content :is(
+  .view-content:not(:has(.nav-files-container, .outline, .backlink-pane, .outgoing-link-pane, .search-result-container.mod-global-search, .tag-container, .bases-view)),
   .nav-files-container,
-  .outline
+  .outline,
+  .backlink-pane,
+  .outgoing-link-pane,
+  .search-result-container.mod-global-search,
+  .tag-container,
+  .bases-view:not(:has(.bases-kanban-column-content)),
+  .bases-kanban-column-content
 ) {
-  -webkit-mask-image: var(--refined-sidebar-edge-fade), linear-gradient(to right, black calc(100% - 60px), rgba(0, 0, 0, 0.65) calc(100% - 42px), rgba(0, 0, 0, 0.15) calc(100% - 26px), transparent calc(100% - 18px)) !important;
-  mask-image: var(--refined-sidebar-edge-fade), linear-gradient(to right, black calc(100% - 60px), rgba(0, 0, 0, 0.65) calc(100% - 42px), rgba(0, 0, 0, 0.15) calc(100% - 26px), transparent calc(100% - 18px)) !important;
+  animation: refined-sidebar-top-fade auto linear both;
+  animation-timeline: scroll(self block);
+  animation-range: 0px 20px;
+  /* Ease text beneath both bars with a soft, 20px transition at each edge. */
+  --refined-sidebar-edge-fade: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, var(--refined-sidebar-top-opacity)) 0px,
+    rgba(0, 0, 0, calc(0.104 + 0.896 * var(--refined-sidebar-top-opacity))) 4px,
+    rgba(0, 0, 0, calc(0.352 + 0.648 * var(--refined-sidebar-top-opacity))) 8px,
+    rgba(0, 0, 0, calc(0.648 + 0.352 * var(--refined-sidebar-top-opacity))) 12px,
+    rgba(0, 0, 0, calc(0.896 + 0.104 * var(--refined-sidebar-top-opacity))) 16px,
+    black 20px,
+    black calc(100% - 20px),
+    rgba(0, 0, 0, 0.896) calc(100% - 16px),
+    rgba(0, 0, 0, 0.648) calc(100% - 12px),
+    rgba(0, 0, 0, 0.352) calc(100% - 8px),
+    rgba(0, 0, 0, 0.104) calc(100% - 4px),
+    transparent 100%
+  );
+}
+
+/* Local Graph pans instead of scrolling, so both edge fades stay visible. */
+:root:root:root body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-right-split) .workspace-leaf-content[data-type="localgraph"] > .view-content.view-content {
+  animation: none;
+  --refined-sidebar-top-opacity: 0;
+}
+
+:root:root:root body:not(.is-mobile) .workspace-split.mod-left-split .workspace-leaf-content :is(
+  .view-content:not(:has(.nav-files-container, .outline, .backlink-pane, .outgoing-link-pane, .search-result-container.mod-global-search, .tag-container, .bases-view)),
+  .nav-files-container,
+  .outline,
+  .backlink-pane,
+  .outgoing-link-pane,
+  .search-result-container.mod-global-search,
+  .tag-container,
+  .bases-view:not(:has(.bases-kanban-column-content)),
+  .bases-kanban-column-content
+) {
+  -webkit-mask-image: var(--refined-sidebar-edge-fade) !important;
+  mask-image: var(--refined-sidebar-edge-fade) !important;
   -webkit-mask-composite: source-in !important;
   mask-composite: intersect !important;
 }
@@ -671,19 +720,23 @@ body:not(.is-mobile) {
   mask-image: var(--refined-desktop-text-fade) !important;
 }
 
-/* Right sidebar: keep selection/hover surfaces outside horizontal fades,
-   just as in the file explorer. Retain the shared top scrolling fade. */
-:root:root:root body:not(.is-mobile) .workspace-split.mod-right-split .workspace-leaf-content.workspace-leaf-content:not([data-type="bases"]) :is(
-  .view-content.view-content.view-content:not(:has(.nav-files-container, .outline)),
+/* Right sidebar: retain only the top and bottom scrolling fades. */
+:root:root:root body:not(.is-mobile) .workspace-split.mod-right-split .workspace-leaf-content.workspace-leaf-content :is(
+  .view-content.view-content.view-content:not(:has(.nav-files-container, .outline, .backlink-pane, .outgoing-link-pane, .search-result-container.mod-global-search, .tag-container, .bases-view)),
   .nav-files-container.nav-files-container,
-  .outline.outline
+  .outline.outline,
+  .backlink-pane,
+  .outgoing-link-pane,
+  .search-result-container.mod-global-search,
+  .tag-container,
+  .bases-view:not(:has(.bases-kanban-column-content)),
+  .bases-kanban-column-content
 ) {
   -webkit-mask-image: var(--refined-sidebar-edge-fade) !important;
   mask-image: var(--refined-sidebar-edge-fade) !important;
 }
 
-/* Fade label/content layers, preserving each row's full highlight shape.
-   Flexible labels fill the available row width, so short names stay clear. */
+/* Right sidebar labels fill the available width without fading. */
 :root:root:root body:not(.is-mobile) .workspace-split.mod-right-split .workspace-leaf-content:not([data-type="bases"]) :is(
   .tree-item-inner,
   .recent-note-content,
@@ -693,8 +746,6 @@ body:not(.is-mobile) {
 ):not([contenteditable="true"]) {
   flex: 1 1 auto;
   min-width: 0;
-  -webkit-mask-image: var(--refined-desktop-text-fade) !important;
-  mask-image: var(--refined-desktop-text-fade) !important;
 }
 
 /* Desktop sidebar search fields: distinct fills, preserving native shape. */
@@ -731,7 +782,7 @@ body:not(.is-mobile).theme-light .workspace-split:is(.mod-left-split, .mod-right
   mask-image: var(--refined-sidebar-edge-fade) !important;
 }
 
-/* Full-width text column, separate from its thumbnail sibling. */
+/* Single-line Recent Notes labels fade separately from their thumbnails. */
 :root:root:root body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-right-split) .recent-note-content.recent-note-content {
   -webkit-mask-image: var(--refined-desktop-text-fade) !important;
   mask-image: var(--refined-desktop-text-fade) !important;
