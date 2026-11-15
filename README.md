@@ -2,14 +2,16 @@
 
 A refined version of the [Flexoki theme for Obsidian](https://github.com/kepano/flexoki-obsidian), created by Silas Johnson.
 
-I'm a big fan of Flexoki, but I made tweaks to the interface on both desktop and mobile to modernize it and make Obsidian look much more modern and sleek.
+I'm a big fan of Flexoki, but I made some tweaks to the interface on both desktop and mobile to make Obsidian look more modern.
 
 ## Tweaks I made:
 
-- Softer colors and subtle fades
+- Softer colors on mobile- dark grey and light tan 
+- Added subtle fades to soften hard edges on desktop
 - Modernized desktop tabs and sidebar aesthetics
-- Refined text highlight aesthetics
-- True to the beautiful original Flexoki color palette
+- Refined the look of text highlights
+
+Yet this theme is true to the beautiful original Flexoki color palette and general aesthetic.
 
 ## Credits
 
