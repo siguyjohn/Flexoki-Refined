@@ -1,8 +1,8 @@
 
 {
   "name": "Flexoki Refined",
-  "version": "1.1",
-  "minAppVersion": "1.1",
+  "version": "1.0.3",
+  "minAppVersion": "1.0.3",
   "author": "Silas Johnson",
   "description": "A refined version of the Flexoki theme for Obsidian with softer colors, fades, a modernized tab and sidebar aesthetic on desktop, and modernized highlights aesthetic."
 }
