@@ -402,11 +402,10 @@ body.theme-light {
 }
 
 
-/* Internal links stay plain in reading/editing views, including on hover.
-   External links retain their underline. */
+/* Underline internal links in reading/editing views, including on hover. */
 body {
-  --link-decoration: none;
-  --link-decoration-hover: none;
+  --link-decoration: underline;
+  --link-decoration-hover: underline;
 }
 
 /* Editing toolbar backdrop and keyboard gap share the note surface in
@@ -507,12 +506,31 @@ body.is-mobile.theme-light .workspace-drawer {
   color: var(--text-muted) !important;
 }
 
-/* Desktop main-pane top fades; Bases keeps its hard edges. */
+/* Desktop main-pane top fades; Bases keeps its hard edges.
+   Fade the rendered content with an alpha mask so images, PDF embeds,
+   and graph/canvas surfaces blend into the pane's shared backdrop.
+   Ease both ends to avoid a visible seam where the fade reaches opaque. */
+body:not(.is-mobile) {
+  --refined-desktop-top-fade: linear-gradient(
+    to bottom,
+    transparent 0px,
+    rgba(0, 0, 0, 0.028) 1.4px,
+    rgba(0, 0, 0, 0.104) 2.8px,
+    rgba(0, 0, 0, 0.216) 4.2px,
+    rgba(0, 0, 0, 0.352) 5.6px,
+    rgba(0, 0, 0, 0.5) 7px,
+    rgba(0, 0, 0, 0.648) 8.4px,
+    rgba(0, 0, 0, 0.784) 9.8px,
+    rgba(0, 0, 0, 0.896) 11.2px,
+    rgba(0, 0, 0, 0.972) 12.6px,
+    black 14px
+  );
+}
 :root:root:root body:not(.is-mobile) .workspace-split.mod-root .workspace-leaf-content[data-type="markdown"] > .view-content > .markdown-preview-view,
 :root:root:root body:not(.is-mobile) .workspace-split.mod-root .workspace-leaf-content[data-type="markdown"] .markdown-source-view.mod-cm6 .cm-scroller,
 :root:root:root body:not(.is-mobile) .workspace-split.mod-root .workspace-leaf-content:is([data-type="graph"], [data-type="localgraph"], [data-type="canvas"]) > .view-content {
-  -webkit-mask-image: linear-gradient(to bottom, transparent, black 14px) !important;
-  mask-image: linear-gradient(to bottom, transparent, black 14px) !important;
+  -webkit-mask-image: var(--refined-desktop-top-fade) !important;
+  mask-image: var(--refined-desktop-top-fade) !important;
 }
 
 /* Desktop right sidebar follows the shared note surface in both modes. */
