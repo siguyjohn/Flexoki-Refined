@@ -904,3 +904,16 @@ body {
 :root:root:root body:not(.is-mobile) .workspace-tab-header.is-active .workspace-tab-header-inner-title {
   color: var(--text-normal) !important;
 }
+
+/* Mobile Search results keep their native text edges; preserve the
+   separate top-of-scroll fade and other sidebar tabs' horizontal fades. */
+:root:root:root body.is-mobile .workspace-drawer .workspace-leaf-content[data-type="search"] :is(
+  .tree-item-inner-text,
+  .search-result-file-title .tree-item-inner,
+  .nav-file-title-content,
+  .nav-folder-title-content,
+  .tag-pane-tag-text
+) {
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
